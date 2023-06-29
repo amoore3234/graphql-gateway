@@ -19,6 +19,17 @@
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -29,6 +40,11 @@
       <groupId>com.graphql-java-kickstart</groupId>
       <artifactId>graphql-java-servlet</artifactId>
       <version>11.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.graphql-java</groupId>
+      <artifactId>graphql-java</artifactId>
+      <version>11.0</version>
     </dependency>
     <dependency>
       <groupId>io.undertow</groupId>

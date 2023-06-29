@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import graphql.kickstart.servlet.GraphQLConfiguration;
+import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.StaticDataFetcher;
 import graphql.schema.idl.RuntimeWiring;
@@ -15,25 +15,18 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 
-public class GraphqlConfiguration {
+public class GraphqlConfigurationProvider {
   
-  private static GraphqlConfiguration instance;
-  private final GraphQLConfiguration configuration;
+  private GraphQL graphQL;
 
-  private GraphqlConfiguration() {
-    configuration = GraphQLConfiguration.with(createSchema()).build();
+  protected GraphqlConfigurationProvider() {
+    graphQL = GraphQL.newGraphQL(createSchema()).build();
   }
 
-  static GraphqlConfiguration getInstance() {
-    if (instance == null) {
-      instance = new GraphqlConfiguration();
-    }
-    return instance;
+  public GraphQL getGraphQL() {
+    return graphQL;
   }
 
-  GraphQLConfiguration getConfiguration() {
-    return configuration;
-  }
 
   private GraphQLSchema createSchema() {
     TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(getSchemaFile());
@@ -50,6 +43,10 @@ public class GraphqlConfiguration {
   private Reader getSchemaFile() {
     InputStream stream = getClass().getClassLoader().getResourceAsStream("schema.graphqls");
     return new InputStreamReader(stream);
+  }
+
+  public static GraphqlConfigurationProvider newInstance() {
+    return new GraphqlConfigurationProvider();
   }
 
 }
