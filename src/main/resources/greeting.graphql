@@ -1,0 +1,26 @@
+scalar Long
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getGreetings:[Greeting]
+  findGreetingById(id:Long):Greeting
+}
+
+type Mutation {
+  createGreeting(create:GreetingInput):Greeting
+  updateGreeting(id:Long, update:GreetingInput):Greeting
+  deleteGreeting(id:Long):String
+}
+
+type Greeting {
+  id:ID!
+  greeting:String
+}
+
+input GreetingInput {
+  greeting:String
+}
