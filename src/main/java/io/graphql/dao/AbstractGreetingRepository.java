@@ -22,6 +22,19 @@ public class AbstractGreetingRepository implements GreetingRepository {
   }
 
   @Override
+  public Greeting findGreetingById(Long id) {
+    for (Map.Entry<Integer, Greeting> ids : map.entrySet()) {
+      if (id == ids.getValue().getId()) {
+        logger.info("Greeting " + ids.getValue().getGreeting() + " with id "
+          + ids.getValue().getId() + " was retrieved.");
+        logger.info("List with selected greeting retrieved: " + map.values());
+        return map.get(ids.getKey());
+      }
+    }
+    return null;
+  }
+
+  @Override
   public Greeting createGreeting(Greeting greeting) {
     final Greeting newGreeting = Greeting.newInstance();
     long id = map.size();
@@ -63,6 +76,10 @@ public class AbstractGreetingRepository implements GreetingRepository {
     for (Map.Entry<Integer, Greeting> ids : map.entrySet()) {
       if (id == ids.getValue().getId()) {
         map.remove(ids.getKey());
+        logger.info("Greeting " + ids.getValue().getGreeting() + " with id "
+          + ids.getValue().getId() + " was removed.");
+        logger.info("List with selected greeting removed: " + map.values());
+        return;
       }
     }
   }

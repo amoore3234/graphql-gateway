@@ -7,13 +7,13 @@ schema {
 
 type Query {
   getGreetings:[Greeting]
-  getGreetingById(id:Long):Greeting
+  findGreetingById(id:Long):Greeting
 }
 
 type Mutation {
   createGreeting(create:GreetingInput):Greeting
   updateGreeting(id:Long, update:GreetingInput):Greeting
-  deletGreeting(id:Long):Greeting
+  deleteGreeting(id:Long):String
 }
 
 type Greeting {

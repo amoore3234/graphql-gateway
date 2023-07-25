@@ -24,11 +24,13 @@ public class GreetingsMutation {
     };
   }
 
-  public DataFetcher<Greeting> deleteGreeting() {
+  public DataFetcher<String> deleteGreeting() {
     return dataFetchingEnvironment -> {
       Long id = dataFetchingEnvironment.getArgument("id");
+      final Greeting deletedGreeting = repository.findGreetingById(id);
       repository.deleteGreeting(id);
-      return null;
+      return "The "  + deletedGreeting.getGreeting()
+          + " greeting was deleted with an id of " + deletedGreeting.getId();
     };
   }
 

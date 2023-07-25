@@ -64,6 +64,7 @@ public class GraphqlConfigurationProvider {
     RuntimeWiring runtimeWiring =
       newRuntimeWiring()
         .scalar(Scalars.GraphQLLong)
+        .type("Query", builder -> builder.dataFetcher("findGreetingById", greetingsDataFetcher.findGreetingById()))
         .type("Query", builder -> builder.dataFetcher("getGreetings", greetingsDataFetcher.getGreetings()))
         .type("Mutation", builder -> builder.dataFetcher("createGreeting", greetingsMutation.createGreeting()))
         .type("Mutation", builder -> builder.dataFetcher("deleteGreeting", greetingsMutation.deleteGreeting()))

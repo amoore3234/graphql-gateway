@@ -19,4 +19,11 @@ public class GreetingsDataFetcher {
       return repository.findGreetings();
     };
   }
+
+  public DataFetcher<Greeting> findGreetingById() {
+    return dataFetchingEnvironment -> {
+      Long id = dataFetchingEnvironment.getArgument("id");
+      return repository.findGreetingById(id);
+    };
+  }
 }
