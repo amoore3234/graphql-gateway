@@ -1,0 +1,218 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+option java_package = "io.admin.timesheet";
+option java_multiple_files = true;
+
+message UserResponse {
+  int64 id = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message CreateUser {
+  string email = 1;
+  string password = 2;
+}
+
+message GetUserById {
+  int64 id = 1;
+}
+
+message UpdateUser {
+  int64 id = 1;
+  CreateUser request = 2;
+}
+
+message EmployeeDetailResponse {
+  int64 id = 1;
+  UserResponse userId = 2;
+  string firstName = 3;
+  string lastName = 4;
+  string empStatus = 5;
+  string empType = 6;
+  string empGrade = 7;
+  string startDate = 8;
+  string endDate = 9;
+}
+
+message CreateEmployeeDetail {
+  UserResponse userId = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string empStatus = 4;
+  string empType = 5;
+  string empGrade = 6;
+  string startDate = 7;
+  string endDate = 8;
+}
+
+message GetEmployeeDetailById {
+  int64 id = 1;
+}
+
+message UpdateEmployeeDetail {
+  int64 id = 1;
+  CreateEmployeeDetail request = 2;
+}
+
+message ProjectResponse {
+  int64 id = 1;
+  EmployeeDetailResponse employeeDetailId = 2;
+  string projectName = 3;
+  string startDate = 4;
+  string endDate = 5;
+  string projectStatus = 6;
+}
+
+message CreateProject {
+  EmployeeDetailResponse employeeDetailId = 1;
+  string projectName = 2;
+  string startDate = 3;
+  string endDate = 4;
+  string projectStatus = 5;
+}
+
+message GetProjectById {
+  int64 id = 1;
+}
+
+message UpdateProject {
+  int64 id = 1;
+  CreateProject request = 2;
+}
+
+message GetProjectsResponse {
+  repeated ProjectResponse projects = 1;
+}
+
+message HolidayResponse {
+  int64 id = 1;
+  TimesheetResponse timesheetId = 2;
+  string holidayName = 3;
+  string date = 4;
+}
+
+message CreateHoliday {
+  TimesheetResponse timesheetId = 1;
+  string holidayName = 2;
+  string date = 3;
+}
+
+message GetHolidayById {
+  int64 id = 1;
+}
+
+message UpdateHoliday {
+  int64 id = 1;
+  CreateHoliday request = 2;
+}
+
+message TimesheetResponse {
+  int64 id = 1;
+  google.protobuf.Timestamp clockIn = 2;
+  google.protobuf.Timestamp clockOut = 3;
+  google.protobuf.Timestamp lunch = 4;
+  int32 hoursWorked = 5;
+  int32 overtime = 6;
+}
+
+message CreateTimesheet {
+  google.protobuf.Timestamp clockIn = 1;
+  google.protobuf.Timestamp clockOut = 2;
+  google.protobuf.Timestamp lunch = 3;
+  int32 hoursWorked = 4;
+  int32 overtime = 5;
+}
+
+message GetTimesheetById {
+  int64 id = 1;
+}
+
+message UpdateTimesheet {
+  int64 id = 1;
+  CreateTimesheet request = 2;
+}
+
+message EmployeeTimesheetResponse {
+  int64 id = 1;
+  EmployeeDetailResponse employeeDetailId = 2;
+  TimesheetResponse timesheetId = 3;
+  string weeklyPeriodDate = 4;
+  int32 weeklyHoursWorked = 5;
+}
+
+message CreateEmployeeTimesheet {
+  EmployeeDetailResponse employeeDetailId = 1;
+  TimesheetResponse timesheetId = 2;
+  string weeklyPeriodDate = 3;
+  int32 weeklyHoursWorked = 4;
+}
+
+message GetEmployeeTimesheetById {
+  int64 id = 1;
+}
+
+message UpdateEmployeeTimesheet {
+  int64 id = 1;
+  CreateEmployeeTimesheet request = 2;
+}
+
+message GetEmployeeTimesheetsResponse {
+  repeated EmployeeTimesheetResponse employeeTimesheets = 1;
+}
+
+message Empty {
+  google.protobuf.Empty empty = 1;
+}
+
+service UserLoginService {
+  //CRUD methods for User
+  rpc createUser(CreateUser) returns (UserResponse);
+  rpc getUserById(GetUserById) returns (UserResponse);
+  rpc updateUser(UpdateUser) returns (UserResponse);
+  rpc deleteUserById(GetUserById) returns (UserResponse);
+}
+
+service EmployeeDetailService {
+  //CRUD methods for EmployeeDetail
+  rpc createEmployeeDetail(CreateEmployeeDetail) returns (EmployeeDetailResponse);
+  rpc getEmployeeDetailById(GetEmployeeDetailById) returns (EmployeeDetailResponse);
+  rpc updateEmployeeDetail(UpdateEmployeeDetail) returns (EmployeeDetailResponse);
+  rpc deleteEmployeeDetail(GetEmployeeDetailById) returns (EmployeeDetailResponse);
+  rpc getProjects(GetEmployeeDetailById) returns (GetProjectsResponse);
+  rpc getEmployeeTimesheets(GetEmployeeDetailById) returns (GetEmployeeTimesheetsResponse);
+}
+
+service ProjectService {
+  //CRUD methods for Project
+  rpc createProject(CreateProject) returns (ProjectResponse);
+  rpc getProjectById(GetProjectById) returns (ProjectResponse);
+  rpc updateProject(UpdateProject) returns (ProjectResponse);
+  rpc deleteProject(GetProjectById) returns (ProjectResponse);
+}
+
+service HolidayService {
+  //CRUD methods for Holiday
+  rpc createHoliday(CreateHoliday) returns (HolidayResponse);
+  rpc getHolidayById(GetHolidayById) returns (HolidayResponse);
+  rpc updateHoliday(UpdateHoliday) returns (HolidayResponse);
+  rpc deleteHoliday(GetHolidayById) returns (HolidayResponse);
+}
+
+service TimesheetService {
+  //CRUD methods for Timesheet
+  rpc createTimesheet(CreateTimesheet) returns (TimesheetResponse);
+  rpc getTimesheetById(GetTimesheetById) returns (TimesheetResponse);
+  rpc updateTimesheet(UpdateTimesheet) returns (TimesheetResponse);
+  rpc deleteTimesheet(GetTimesheetById) returns (TimesheetResponse);
+}
+
+service EmployeeTimesheetService {
+  //CRUD methods for EmployeeTimesheet
+  rpc createEmployeeTimesheet(CreateEmployeeTimesheet) returns (EmployeeTimesheetResponse);
+  rpc getEmployeeTimesheetById(GetEmployeeTimesheetById) returns (EmployeeTimesheetResponse);
+  rpc updateEmployeeTimesheet(UpdateEmployeeTimesheet) returns (EmployeeTimesheetResponse);
+  rpc deleteEmployeeTimesheet(GetEmployeeTimesheetById) returns (EmployeeTimesheetResponse);
+}
