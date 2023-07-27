@@ -1,0 +1,60 @@
+scalar Date
+scalar Datetime
+
+schema {
+  query:Query
+}
+
+type Query {
+  getUsers:[UserLogin]
+}
+
+type EmployeeDetail {
+  id:ID!
+  userLogin:UserLogin!
+  firstName:String
+  lastName:String
+  employeeStatus:String
+  employeeType:String
+  employeeGrade:String
+  startDate:Date
+  endDate:Date
+}
+
+type EmployeeTimesheet {
+  id:ID!
+  employeeDetail:EmployeeDetail!
+  timesheet:Timesheet!
+  weeklyPeriodDate:Date
+  weeklyHoursWorked:Int
+}
+
+type Holiday {
+  id:ID!
+  timesheet:Timesheet!
+  holidayName:String
+  date:Date
+}
+
+type Project {
+  id:ID!
+  employeeDetail:EmployeeDetail!
+  projectName:String
+  startDate:Date
+  endDate:Date
+  projectStatus:String
+}
+
+type Timesheet {
+  id:ID!
+  clockIn:Datetime
+  clockOut:Datetime
+  lunch:Datetime
+  hoursWorked:Int
+  overtime:Int
+}
+
+type UserLogin {
+  email:String
+  password:String
+}
