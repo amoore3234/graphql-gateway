@@ -2,18 +2,18 @@ package io.graphql;
 
 import java.io.InputStream;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.jsixface.YamlConfig;
 
-import io.graphql.configuration.ServerFactory;
-
 public class GraphqlGatewayConfiguration {
-  
-  @JsonProperty("server")
-  private ServerFactory server = new ServerFactory();
 
-  public ServerFactory getServer() {
-    return server;
+  private String file = "config.yml";
+
+  public String getFile() {
+    return file;
+  }
+
+  public void setFile(String file) {
+    this.file = file;
   }
 
   public YamlConfig load(String config) {
@@ -21,4 +21,5 @@ public class GraphqlGatewayConfiguration {
     YamlConfig configuration = YamlConfig.load(resource);
     return configuration;
   }
+
 }
