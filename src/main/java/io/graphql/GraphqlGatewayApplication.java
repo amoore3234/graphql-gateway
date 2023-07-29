@@ -16,13 +16,11 @@ public class GraphqlGatewayApplication {
 
   private static final int PORT = 8080;
   public static void main( String[] args ) throws ServletException {
-    
+    final GraphqlGatewayApplication app = new GraphqlGatewayApplication();
+
+    final 
     PathHandler path = Handlers.path(Handlers.path(ResponseCodeHandler.HANDLE_404))
         .addPrefixPath("/graphql", new GraphqlHandler());
-    Undertow server = Undertow.builder()
-        .addHttpListener(PORT, "localhost")
-        .setHandler(path)
-        .build();
-    server.start();
+  
   }
 }
