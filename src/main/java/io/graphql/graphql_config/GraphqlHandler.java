@@ -56,8 +56,8 @@ public class GraphqlHandler implements HttpHandler {
 
   private void executeResult(HttpServerExchange exchange, GraphqlRequest request) throws IOException {
     exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "application/json");
-    GraphqlSampleConfiguration graphqlConfig = GraphqlSampleConfiguration.newInstance();
-    GraphQL myGraphqlSchema = graphqlConfig.getGraphQL();
+    GraphqlSchema graphqlSchema = GraphqlSchema.newInstance();
+    GraphQL myGraphqlSchema = graphqlSchema.getGraphQL();
     final ExecutionInput.Builder builder = ExecutionInput.newExecutionInput()
         .query(request.query())
         .operationName(request.operationName());

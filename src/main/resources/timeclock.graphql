@@ -1,6 +1,6 @@
 scalar Long
+scalar DateTime
 scalar Date
-scalar Datetime
 
 schema {
   query:Query
@@ -48,9 +48,9 @@ type Project {
 
 type Timesheet {
   id:ID!
-  clockIn:Datetime
-  clockOut:Datetime
-  lunch:Datetime
+  clockIn:DateTime
+  clockOut:DateTime
+  lunch:DateTime
   hoursWorked:Int
   overtime:Int
 }

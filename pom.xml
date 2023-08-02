@@ -22,6 +22,16 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.13.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.13.5</version>
+    </dependency>
 
     <dependency>
       <groupId>com.github.jsixface</groupId>
@@ -45,14 +55,14 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.graphql-java-kickstart</groupId>
-      <artifactId>graphql-java-servlet</artifactId>
-      <version>11.1.0</version>
+      <groupId>com.graphql-java</groupId>
+      <artifactId>graphql-java</artifactId>
+      <version>20.2</version>
     </dependency>
     <dependency>
       <groupId>com.graphql-java</groupId>
-      <artifactId>graphql-java</artifactId>
-      <version>11.0</version>
+      <artifactId>graphql-java-extended-scalars</artifactId>
+      <version>20.2</version>
     </dependency>
     <dependency>
       <groupId>io.undertow</groupId>

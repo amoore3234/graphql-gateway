@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import graphql.GraphQL;
-import graphql.Scalars;
+import graphql.scalars.ExtendedScalars;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
@@ -63,7 +63,7 @@ public class GraphqlSampleConfiguration {
 
     RuntimeWiring runtimeWiring =
       newRuntimeWiring()
-        .scalar(Scalars.GraphQLLong)
+        .scalar(ExtendedScalars.GraphQLLong)
         .type("Query", builder -> builder.dataFetcher("findGreetingById", greetingsDataFetcher.findGreetingById()))
         .type("Query", builder -> builder.dataFetcher("getGreetings", greetingsDataFetcher.getGreetings()))
         .type("Mutation", builder -> builder.dataFetcher("createGreeting", greetingsMutation.createGreeting()))

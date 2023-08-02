@@ -12,18 +12,18 @@ import io.undertow.server.handlers.PathHandler;
 public class ServerFactory extends GraphqlGatewayConfiguration {
   
   @JsonProperty
-  private int port = load(getFile()).getInt("server.port");
+  private Integer port = getServerPort();
 
   @JsonProperty
-  private String bindAddress = load(getFile()).getString("server.bindAddress");
+  private String bindAddress = getServerBindAddress();
 
   @Nullable
-  public int getPort() {
+  public Integer getPort() {
     return port;
   }
 
   @Nullable
-  public void setPort(@Nullable int port) {
+  public void setPort(@Nullable Integer port) {
     this.port = port;
   }
 

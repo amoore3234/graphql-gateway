@@ -1,3 +1,7 @@
 server:
   port: 8080
   bindAddress: 0.0.0.0
+
+timeclock:
+  port: 5001
+  bindAddress: 0.0.0.0
