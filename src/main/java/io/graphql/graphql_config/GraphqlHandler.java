@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
-import io.graphql.sample.config.GraphqlSampleConfiguration;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
@@ -25,8 +24,6 @@ import io.undertow.util.Methods;
 import io.undertow.util.StatusCodes;
 
 public class GraphqlHandler implements HttpHandler {
-
-  private Logger logger = LoggerFactory.getLogger(GraphqlHandler.class);
 
   @Override
   public void handleRequest(HttpServerExchange exchange) throws Exception {

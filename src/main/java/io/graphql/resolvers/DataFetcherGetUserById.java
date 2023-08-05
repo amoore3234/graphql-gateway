@@ -6,15 +6,20 @@ import io.grpc.stub.StreamObserver;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 
-public class UserLoginDataFetcher implements DataFetcher<CompletableFuture<UserResponse>>{
+public class DataFetcherGetUserById implements DataFetcher<CompletableFuture<UserResponse>>{
+
+  private final Logger log = LoggerFactory.getLogger(DataFetcherGetUserById.class);
 
   private GrpcHttp2ClientUtil http2ClientUtil;
   private UserResponse userLoginResponse = UserResponse.getDefaultInstance();
 
-  public UserLoginDataFetcher(GrpcHttp2ClientUtil http2ClientUtil) {
+  public DataFetcherGetUserById(GrpcHttp2ClientUtil http2ClientUtil) {
     this.http2ClientUtil = http2ClientUtil;
   }
 
@@ -35,8 +40,7 @@ public class UserLoginDataFetcher implements DataFetcher<CompletableFuture<UserR
 
       @Override
       public void onError(Throwable t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onError'");
+        log.error("Unable to retrieve user", t);
       }
 
       @Override

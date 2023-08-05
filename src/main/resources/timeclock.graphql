@@ -4,15 +4,20 @@ scalar Date
 
 schema {
   query:Query
+  mutation:Mutation
 }
 
 type Query {
-  getUserById(id:Long!):UserLogin
+  getUserById(id:Long!):User
+}
+
+type Mutation {
+  createUser(user:UserInput):User
 }
 
 type EmployeeDetail {
   id:ID!
-  userLogin:UserLogin!
+  userLogin:User!
   firstName:String
   lastName:String
   employeeStatus:String
@@ -55,8 +60,13 @@ type Timesheet {
   overtime:Int
 }
 
-type UserLogin {
+type User {
   id:ID!
   email:String
+  password:String
+}
+
+input UserInput {
+  email:String!
   password:String
 }

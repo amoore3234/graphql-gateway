@@ -1,8 +1,10 @@
 package io.graphql.util;
 
+import io.admin.timesheet.CreateUser;
 import io.admin.timesheet.GetUserById;
 import io.admin.timesheet.UserLoginServiceGrpc;
 import io.admin.timesheet.UserResponse;
+import io.graphql.core.UserInput;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -21,8 +23,16 @@ public class GrpcHttp2ClientUtil {
     asyncStub = UserLoginServiceGrpc.newStub(channel);
   }
 
-  public void callGetByUserLoginId(Long id, StreamObserver<UserResponse> responseOberver) {
+  public void callGetByUserLoginId(Long id, StreamObserver<UserResponse> responseObserver) {
     GetUserById userById = GetUserById.newBuilder().setId(id).build();
-    asyncStub.getUserById(userById, responseOberver);
+    asyncStub.getUserById(userById, responseObserver);
+  }
+
+  public void callCreateUser(UserInput user, StreamObserver<UserResponse> responseObserver) {
+    CreateUser createUser = CreateUser.newBuilder()
+        .setEmail(user.getEmail())
+        .setPassword(user.getPassword())
+        .build();
+    asyncStub.createUser(createUser, responseObserver);
   }
 }

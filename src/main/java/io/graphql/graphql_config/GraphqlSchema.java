@@ -14,7 +14,8 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import io.graphql.configuration.TimeclockServerFactory;
-import io.graphql.resolvers.UserLoginDataFetcher;
+import io.graphql.resolvers.DataFetcherGetUserById;
+import io.graphql.resolvers.MutationCreateUser;
 import io.graphql.util.GrpcHttp2ClientUtil;
 
 public class GraphqlSchema {
@@ -42,7 +43,8 @@ public class GraphqlSchema {
         .scalar(ExtendedScalars.GraphQLLong)
         .scalar(ExtendedScalars.DateTime)
         .scalar(ExtendedScalars.Date)
-        .type("Query", builder -> builder.dataFetcher("getUserById", new UserLoginDataFetcher(grpcHttp2ClientUtil)))
+        .type("Query", builder -> builder.dataFetcher("getUserById", new DataFetcherGetUserById(grpcHttp2ClientUtil)))
+        .type("Mutation", builder -> builder.dataFetcher("createUser", new MutationCreateUser(grpcHttp2ClientUtil)))
         .build();
     
     SchemaGenerator schemaGenerator = new SchemaGenerator();
