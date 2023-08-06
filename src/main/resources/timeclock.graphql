@@ -13,6 +13,7 @@ type Query {
 
 type Mutation {
   createUser(user:UserInput):User
+  updateUser(id:Long, user:UserInput):User
 }
 
 type EmployeeDetail {

@@ -2,6 +2,7 @@ package io.graphql.util;
 
 import io.admin.timesheet.CreateUser;
 import io.admin.timesheet.GetUserById;
+import io.admin.timesheet.UpdateUser;
 import io.admin.timesheet.UserLoginServiceGrpc;
 import io.admin.timesheet.UserResponse;
 import io.graphql.core.UserInput;
@@ -34,5 +35,18 @@ public class GrpcHttp2ClientUtil {
         .setPassword(user.getPassword())
         .build();
     asyncStub.createUser(createUser, responseObserver);
+  }
+
+  public void callUpdateUser(Long id, UserInput user,
+      StreamObserver<UserResponse> responseObserver) {
+    CreateUser createUser = CreateUser.newBuilder()
+        .setEmail(user.getEmail())
+        .setPassword(user.getPassword())
+        .build();
+    UpdateUser updateUser = UpdateUser.newBuilder()
+        .setId(id)
+        .setRequest(createUser)
+        .build();
+    asyncStub.updateUser(updateUser, responseObserver);
   }
 }

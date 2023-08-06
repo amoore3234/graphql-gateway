@@ -6,7 +6,7 @@ public class UserInput {
 
   private String password;
 
-  public UserInput() {}
+  protected UserInput() {}
   
   public String getEmail() {
     return email;
@@ -22,6 +22,10 @@ public class UserInput {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public static UserInput newInstance() {
+    return new UserInput();
   }
 
 }

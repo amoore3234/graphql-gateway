@@ -14,21 +14,22 @@ import io.graphql.core.UserInput;
 import io.graphql.util.GrpcHttp2ClientUtil;
 import io.grpc.stub.StreamObserver;
 
-public class MutationCreateUser implements DataFetcher<CompletableFuture<UserResponse>> {
-
-  private final Logger log = LoggerFactory.getLogger(MutationCreateUser.class);
+public class MutationUpdateUser implements DataFetcher<CompletableFuture<UserResponse>> {
+  
+  private final Logger log = LoggerFactory.getLogger(MutationUpdateUser.class);
 
   private GrpcHttp2ClientUtil http2ClientUtil;
   private final ObjectMapper objectMapper;
   private UserResponse userLoginResponse = UserResponse.getDefaultInstance();
 
-  public MutationCreateUser(GrpcHttp2ClientUtil http2ClientUtil) {
+  public MutationUpdateUser(GrpcHttp2ClientUtil http2ClientUtil) {
     this.http2ClientUtil = http2ClientUtil;
     this.objectMapper = new ObjectMapper();
   }
 
   @Override
   public CompletableFuture<UserResponse> get(DataFetchingEnvironment environment) throws Exception {
+    final Long id = environment.getArgument("id");
     final Object userObject = environment.getArgument("user");
     final UserInput user = objectMapper.convertValue(userObject, UserInput.class);
     final CompletableFuture<UserResponse> completableFuture = new CompletableFuture<>();
@@ -45,7 +46,7 @@ public class MutationCreateUser implements DataFetcher<CompletableFuture<UserRes
 
       @Override
       public void onError(Throwable t) {
-        log.error("Unable to create the specified user", t);
+        log.error("Unable to update the specified user", t);
       }
 
       @Override
@@ -54,7 +55,7 @@ public class MutationCreateUser implements DataFetcher<CompletableFuture<UserRes
       }
     };
 
-    http2ClientUtil.callCreateUser(user, responseObserver);
+    http2ClientUtil.callUpdateUser(id, user, responseObserver);
     return completableFuture;
   }
 }
