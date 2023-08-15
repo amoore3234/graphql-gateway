@@ -49,4 +49,9 @@ public class GrpcHttp2ClientUtil {
         .build();
     asyncStub.updateUser(updateUser, responseObserver);
   }
+
+  public void callDeleteUser(Long id, StreamObserver<UserResponse> responseObserver) {
+    GetUserById userById = GetUserById.newBuilder().setId(id).build();
+    asyncStub.deleteUserById(userById, responseObserver);
+  }
 }
